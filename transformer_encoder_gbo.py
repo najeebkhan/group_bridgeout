@@ -25,11 +25,9 @@ class TransformerEncoderLayer(Module):
         self.self_attn = MultiheadAttention(d_model, nhead, dropout=dropout, batch_first=batch_first,
                                             **factory_kwargs)
         # Implementation of Feedforward model
-        # self.linear1 = GroupBridgeoutFcLayer(d_model, dim_feedforward, reg_strength=gbo, **factory_kwargs)
-        self.linear1 = Linear(d_model, dim_feedforward, **factory_kwargs)
+        self.linear1 = GroupBridgeoutFcLayer(d_model, dim_feedforward, reg_strength=gbo, **factory_kwargs)
         self.dropout = Dropout(dropout) if gbo <= 0.0 else torch.nn.Identity()
-        # self.linear2 = GroupBridgeoutFcLayer(dim_feedforward, d_model, reg_strength=gbo, **factory_kwargs)
-        self.linear2 = Linear(dim_feedforward, d_model, **factory_kwargs)
+        self.linear2 = GroupBridgeoutFcLayer(dim_feedforward, d_model, reg_strength=gbo, **factory_kwargs)
 
 
         self.norm_first = norm_first
