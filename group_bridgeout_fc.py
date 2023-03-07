@@ -51,7 +51,7 @@ class GroupBridgeoutFcLayer(Module):
         if not self.training or self.nu <= 0.0:
             return F.linear(input_x, self.weight, self.bias) 
 
-        batch_size =  input_x.numel()//input_x.size()[-1]
+        _, batch_size, _ =  input_x.size()
         regularization_strength = self.nu/batch_size
 
         w = self.weight

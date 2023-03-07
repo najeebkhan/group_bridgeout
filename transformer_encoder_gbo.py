@@ -33,8 +33,8 @@ class TransformerEncoderLayer(Module):
         self.norm_first = norm_first
         self.norm1 = LayerNorm(d_model, eps=layer_norm_eps, **factory_kwargs)
         self.norm2 = LayerNorm(d_model, eps=layer_norm_eps, **factory_kwargs)
-        self.dropout1 = Dropout(dropout)
-        self.dropout2 = Dropout(dropout)
+        self.dropout1 = Dropout(dropout) if gbo <= 0.0 else torch.nn.Identity()
+        self.dropout2 = Dropout(dropout) if gbo <= 0.0 else torch.nn.Identity()
 
         # Legacy string support for activation function.
         if isinstance(activation, str):
